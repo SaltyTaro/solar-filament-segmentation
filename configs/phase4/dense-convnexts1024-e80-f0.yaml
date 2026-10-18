@@ -1,0 +1,27 @@
+# Phase 4 bet: spine-aware dense family. ConvNeXt-Small U-Net (ImageNet) at native resolution on
+# 1024 crops, predicting soft annotator-consensus filament and spine maps; instances are connected
+# components of the filament map, written per dihedral view like the other families' candidates.
+model: dense-convnext-small-unet
+pretrained_checkpoint: weights/pretrained/convnext_small-0c510722.pth
+pretrained_sha256: 0c510722adfd92966a2bd72b92f785ca05966bbac03cafe2f7a90b1f54bfab9a
+fold: 0
+seed: 20261018
+crop_size: 1024
+scale_jitter: [0.8, 1.25]
+batch_size: 8
+gradient_accumulation: 1
+epochs: 80
+steps_per_epoch: 71
+learning_rate: 0.0004
+minimum_learning_rate: 0.000001
+warmup_steps: 300
+weight_decay: 0.05
+backbone_multiplier: 0.25
+gradient_clip: 1.0
+spine_weight: 0.5
+checkpoint_every_steps: 71
+mixed_precision: true
+component_threshold: 0.5
+minimum_component_area: 100
+time_limit_minutes: 400
+num_workers: 7

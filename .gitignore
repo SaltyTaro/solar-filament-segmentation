@@ -1,0 +1,13 @@
+# Data, weights and outputs live under SOLAR_STORAGE_ROOT (storage/ by default)
+/storage/
+.env
+*.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+*.pt
+*.zip
+*.log

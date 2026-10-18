@@ -1,0 +1,35 @@
+# Phase 1 length sweep: long arm. Recipe changes versus the 8-epoch reference:
+# real batch 4, all backbone stages trainable, scale/shift jitter, EMA weights,
+# parallel loading and saved low-threshold candidates for CPU threshold sweeps.
+model: maskrcnn-resnet50-fpn-v2
+fold: 0
+seed: 20261010
+pretrained: true
+image_size: 1536
+batch_size: 4
+epochs: 36
+steps_per_epoch: 142
+learning_rate: 0.0001
+final_learning_rate: 1.0e-06
+learning_rate_policy: cosine
+weight_decay: 0.0001
+trainable_backbone_layers: 5
+validation_every: 12
+validation_limit: null
+maximum_detections: 100
+score_threshold: 0.3
+mask_threshold: 0.5
+minimum_area: 150
+maximum_area: 50000
+mixed_precision: true
+checkpoint_every_steps: 142
+sampling_policy: coverage
+annotator_policy: random
+save_best_checkpoint: true
+save_best_weights_only: true
+time_limit_minutes: 660
+scale_jitter: [0.8, 1.25]
+translate_jitter: 0.06
+ema: true
+num_workers: 6
+save_candidates: true

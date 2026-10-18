@@ -1,0 +1,35 @@
+# Phase 3 arm: YOLO26m-seg (NMS-free end-to-end head, Proto26 with semantic auxiliary), otherwise the
+# YOLO11m 60-epoch recipe. Tests a new architecture family for the ensemble.
+model: yolo26m-seg
+pretrained_checkpoint: weights/pretrained/yolo26m-seg.pt
+pretrained_sha256: 16b636f04e8fb6a325b3370f22dc5e5535ff473e384f4d041fd28d788f6ee9f5
+fold: 1
+seed: 20261010
+sampling_policy: coverage
+annotator_policy: random
+image_size: 1536
+mask_ratio: 2
+batch_size: 8
+gradient_accumulation: 1
+epochs: 60
+steps_per_epoch: 71
+learning_rate: 0.0003
+minimum_learning_rate: 0.00001
+warmup_steps: 150
+weight_decay: 0.0005
+validation_every: 60
+validation_limit: null
+checkpoint_every_steps: 71
+mixed_precision: true
+score_threshold: 0.2
+mask_threshold: 0.5
+minimum_area: 150
+maximum_area: 50000
+maximum_detections: 60
+nms_iou: 0.7
+time_limit_minutes: 660
+scale_jitter: [0.8, 1.25]
+translate_jitter: 0.06
+num_workers: 7
+save_candidates: true
+candidate_maximum_detections: 80

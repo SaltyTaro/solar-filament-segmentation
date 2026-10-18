@@ -1,0 +1,34 @@
+# Phase 3 arm: native 2048 input for small filaments, otherwise the YOLO11m 60-epoch recipe (batch 4 to fit memory).
+model: yolo11m-seg
+pretrained_checkpoint: weights/pretrained/yolo11m-seg.pt
+pretrained_sha256: eb9a06f63e2206c35d68d839b08c362429ebecf933ad54c1ad68b2fd001c17cf
+fold: 0
+seed: 20261010
+sampling_policy: coverage
+annotator_policy: random
+image_size: 2048
+mask_ratio: 2
+batch_size: 4
+gradient_accumulation: 1
+epochs: 60
+steps_per_epoch: 142
+learning_rate: 0.0003
+minimum_learning_rate: 0.00001
+warmup_steps: 150
+weight_decay: 0.0005
+validation_every: 30
+validation_limit: null
+checkpoint_every_steps: 142
+mixed_precision: true
+score_threshold: 0.2
+mask_threshold: 0.5
+minimum_area: 150
+maximum_area: 50000
+maximum_detections: 60
+nms_iou: 0.7
+time_limit_minutes: 660
+scale_jitter: [0.8, 1.25]
+translate_jitter: 0.06
+num_workers: 7
+save_candidates: true
+candidate_maximum_detections: 80

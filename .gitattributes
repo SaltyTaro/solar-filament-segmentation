@@ -1,0 +1,11 @@
+# Scripts and configs run on Linux workers; keep LF endings on every checkout.
+*.sh   text eol=lf
+*.py   text eol=lf
+*.yaml text eol=lf
+*.yml  text eol=lf
+*.ipynb text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.pdf  binary
+*.pt   binary
