@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import pickle
 import re
 import shutil
 from datetime import datetime, timezone
@@ -50,6 +51,13 @@ def slim(checkpoint: dict) -> dict:
     if "architecture" in checkpoint:
         keep["architecture"] = checkpoint["architecture"]
     return keep
+
+
+def copy_rescorer(source: Path, target: Path):
+    """The pickled rescorer, with its training-table provenance cut to run folder and file name (no host paths)."""
+    saved = pickle.loads(source.read_bytes())
+    saved["features"] = ["/".join(Path(path).parts[-2:]) for path in saved.get("features", [])]
+    target.write_bytes(pickle.dumps(saved))
 
 
 def main():
@@ -94,7 +102,7 @@ def main():
         files.append(refiner / path.name)
     if len(list(refiner.glob("fold-*.pt"))) != folds:
         raise ValueError("Expected one refiner model per fold")
-    shutil.copy2(args.rescorer, args.output / "rescorer-hgb.pkl")
+    copy_rescorer(args.rescorer, args.output / "rescorer-hgb.pkl")
     files.append(args.output / "rescorer-hgb.pkl")
     if args.splits:
         (args.output / "splits").mkdir(exist_ok=True)
